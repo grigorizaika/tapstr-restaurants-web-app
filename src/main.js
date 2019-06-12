@@ -13,6 +13,8 @@ import App from './App.vue'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import './assets/css/main.css'
+require('./assets/css/main.css');
 
 Amplify.configure(aws_exports)
 

@@ -1,18 +1,18 @@
 {
-    "tapresenv": {
+    "tapstrenv": {
         "awscloudformation": {
-            "AuthRoleName": "tapstrrestaurantsweb-tapresenv-20190610191341-authRole",
-            "UnauthRoleArn": "arn:aws:iam::010535520734:role/tapstrrestaurantsweb-tapresenv-20190610191341-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::010535520734:role/tapstrrestaurantsweb-tapresenv-20190610191341-authRole",
+            "AuthRoleName": "tapstrrestaurantsweb-tapstrenv-20190612132633-authRole",
+            "UnauthRoleArn": "arn:aws:iam::010535520734:role/tapstrrestaurantsweb-tapstrenv-20190612132633-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::010535520734:role/tapstrrestaurantsweb-tapstrenv-20190612132633-authRole",
             "Region": "eu-central-1",
-            "DeploymentBucketName": "tapstrrestaurantsweb-tapresenv-20190610191341-deployment",
-            "UnauthRoleName": "tapstrrestaurantsweb-tapresenv-20190610191341-unauthRole",
-            "StackName": "tapstrrestaurantsweb-tapresenv-20190610191341",
-            "StackId": "arn:aws:cloudformation:eu-central-1:010535520734:stack/tapstrrestaurantsweb-tapresenv-20190610191341/188cc6c0-8ba3-11e9-846c-0ac7c3b3e9ea"
+            "DeploymentBucketName": "tapstrrestaurantsweb-tapstrenv-20190612132633-deployment",
+            "UnauthRoleName": "tapstrrestaurantsweb-tapstrenv-20190612132633-unauthRole",
+            "StackName": "tapstrrestaurantsweb-tapstrenv-20190612132633",
+            "StackId": "arn:aws:cloudformation:eu-central-1:010535520734:stack/tapstrrestaurantsweb-tapstrenv-20190612132633/eefc5290-8d04-11e9-858d-02d441bc2b52"
         },
         "categories": {
             "auth": {
-                "tapstrrestaurants": {
+                "tapstrestaurants": {
                     "hostedUIProviderCreds": "[]"
                 }
             }

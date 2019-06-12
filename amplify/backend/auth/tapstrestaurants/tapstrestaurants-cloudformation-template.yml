@@ -129,7 +129,10 @@ Parameters:
               
   thirdPartyAuth:
     Type: String
-            
+                
+  usernameAttributes:
+    Type: CommaDelimitedList
+        
   hostedUI:
     Type: String
           
@@ -213,6 +216,8 @@ Resources:
           RequireNumbers: false
           RequireSymbols: false
           RequireUppercase: false
+      
+      UsernameAttributes: !Ref usernameAttributes
           
       MfaConfiguration: !Ref mfaConfiguration
       SmsVerificationMessage: !Ref smsVerificationMessage
@@ -227,10 +232,7 @@ Resources:
   # Depends on UserPool for ID reference
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
-      ClientName: tapstr7e7bd724_app_clientWeb
-      
-      ReadAttributes: !Ref userpoolClientReadAttributes
-      WriteAttributes: !Ref userpoolClientWriteAttributes
+      ClientName: tapstr4d77d1b3_app_clientWeb
       
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
       UserPoolId: !Ref UserPool
@@ -241,9 +243,6 @@ Resources:
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
       ClientName: !Ref userpoolClientName
-      
-      ReadAttributes: !Ref userpoolClientReadAttributes
-      WriteAttributes: !Ref userpoolClientWriteAttributes
       
       GenerateSecret: !Ref userpoolClientGenerateSecret
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
@@ -727,7 +726,7 @@ Resources:
             - Effect: Allow
               Action:
                 - 'iam:PassRole'
-              Resource: !If [ShouldNotCreateEnvResources, 'arn:aws:iam:::role/tapstr7e7bd724_totp_lambda_role', !Join ['',['arn:aws:iam:::role/tapstr7e7bd724_totp_lambda_role', '-', !Ref env]]]
+              Resource: !If [ShouldNotCreateEnvResources, 'arn:aws:iam:::role/tapstr4d77d1b3_totp_lambda_role', !Join ['',['arn:aws:iam:::role/tapstr4d77d1b3_totp_lambda_role', '-', !Ref env]]]
   MFALambda:
   # Lambda which sets MFA config values
   # Depends on MFALambdaRole for role ARN
@@ -838,7 +837,7 @@ Resources:
   # Always created
     Type: AWS::Cognito::IdentityPool
     Properties: 
-      IdentityPoolName: !If [ShouldNotCreateEnvResources, 'tapstrrestaurants', !Join ['',['tapstrrestaurants', '__', !Ref env]]]
+      IdentityPoolName: !If [ShouldNotCreateEnvResources, 'tapstrrestaurantspool', !Join ['',['tapstrrestaurantspool', '__', !Ref env]]]
       
       CognitoIdentityProviders:
         - ClientId:  !Ref UserPoolClient

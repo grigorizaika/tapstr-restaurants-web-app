@@ -30,13 +30,12 @@ export default {
   name: 'RestaurantStart',
   data: function() {
     return {
+      signedIn: false,
+
       restaurant_name: "",
       restaurant_email: "",
       restaurant_city: ""
     }
-  },
-  props: {
-    signedIn: false,
   },
   created() {
     this.findUser();
