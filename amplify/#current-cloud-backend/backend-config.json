@@ -1,0 +1,8 @@
+{
+	"auth": {
+		"tapstrestaurants": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation"
+		}
+	}
+}

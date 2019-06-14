@@ -1,0 +1,7 @@
+{
+    "tapstrenv": {
+        "configLevel": "project",
+        "useProfile": true,
+        "profileName": "grgr"
+    }
+}
