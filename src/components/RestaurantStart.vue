@@ -5,7 +5,7 @@
         <b-button @click="getRestaurantData()">GET restaurant data</b-button>
       </b-col>
       <b-col cols='6'>
-        <div id="restaurantInfoForm" v-if="signedIn" align="center">
+        <div id="restaurantInfoForm" v-if="isLoggedIn" align="center">
           <b-input type="text" placeholder="Name" name="name_field" v-model="restaurant.name" class="w-75"></b-input>
           <b-input type="email" placeholder="Email" name="email_field" v-model="restaurant.email" class="w-75"></b-input>
           <b-row class="w-75">
@@ -38,14 +38,16 @@
           <b-input type="number" v-model="restaurant.avg_price_for_two" placeholder="Average price for two" class="w-75" ></b-input>
           <b-input type="tel" v-model="restaurant.phone_number" placeholder="Phone number" class="w-75"></b-input>
 
-          <b-button @click="submitRestaurantData()">Submit</b-button>
-          <b-spinner v-if="isLoading" label="Loading..."></b-spinner>
+          <b-button @click="submitRestaurantData()">
+          <div v-if="!isLoading">Submit</div>
+          <b-spinner v-if="isLoading" label="Loading..."></b-spinner></b-button>
+
 
         </div>
-        <amplify-authenticator v-if="!signedIn"></amplify-authenticator>
+        <amplify-authenticator v-if="!isLoggedIn"></amplify-authenticator>
       </b-col>
       <b-col cols='3'>
-        <amplify-sign-out v-if="signedIn"></amplify-sign-out>
+        <amplify-sign-out v-if="isLoggedIn"></amplify-sign-out>
       </b-col>
     </b-row>
   </b-container>
@@ -63,7 +65,7 @@ export default {
       isLoading: false,
 
       signedIn: false,
-      userRestaurant: Object,
+      /*userRestaurant: Object,*/
       session: Object,
 
       restaurant: {
@@ -85,29 +87,30 @@ export default {
       pickedCity: "City",
     }
   },
+  computed: {
+    userRestaurant() { return this.$store.getters.userRestaurant },
+    userSession() { return this.$store.getters.userSession },
+    restaurantEmail() { return this.$store.getters.isUserSignedIn ? this.$store.getters.userRestaurant.attributes.email : "blank@restaurant.com"},
+    isLoggedIn() { return this.$store.getters.isUserSignedIn },
+  },
   created() {
     this.findUser();
     AmplifyEventBus.$on('authState', info => {
       if(info === "signedIn") {
         this.findUser();
       } else {
-        this.signedIn = false;
+        /* TODO: surround w/ try/catch clauses */
+        this.$store.commit('changeUserRestaurant', undefined);
+        this.$store.commit('changeUserSession', undefined);
       }
     });
     this.getCities();
   },
   methods: {
     async findUser() {
-      try {
-        this.userRestaurant = await Auth.currentAuthenticatedUser();
-        this.signedIn = true;
-        console.log(this.userRestaurant);
-
-        this.session = await Auth.currentSession();
-        console.log(this.session);
-      } catch (err) {
-        this.signedIn = false;
-      }
+      /* TODO: surround w/ try/catch clauses */
+      this.$store.commit('changeUserRestaurant', await Auth.currentAuthenticatedUser());
+      this.$store.commit('changeUserSession', await Auth.currentSession());
     },
     submitRestaurantData() {
       var that = this;
@@ -115,7 +118,7 @@ export default {
 
       var headers = {
         'Content-Type': 'application/json',
-        'Authorization': this.session.getIdToken().getJwtToken(),
+        'Authorization': this.userSession.getIdToken().getJwtToken(),
       }
 
       axios.post('https://axqeajmn83.execute-api.eu-central-1.amazonaws.com/dev/venue-profile', that.restaurant, { headers: headers })
@@ -124,28 +127,28 @@ export default {
         console.log(response);
       });
     },
-    getCities() {
-      var that = this;
-      axios.get('https://axqeajmn83.execute-api.eu-central-1.amazonaws.com/dev/city')
-      .then((resonse) => {
-        that.cities = resonse.data.Items;
-        console.log(resonse.data.Items);
-      });
-    },
     getRestaurantData() {
       var that = this;
 
       var headers = {
         'Content-Type': 'application/json',
-        'Authorization': this.session.getIdToken().getJwtToken(),
-      }
+        'Authorization': this.userSession.getIdToken().getJwtToken(),
+      };
 
       axios.get('https://axqeajmn83.execute-api.eu-central-1.amazonaws.com/dev/venue-profile?accessToken='
-        + this.session.getAccessToken().getJwtToken(), { headers: headers })
+        + this.userSession.getAccessToken().getJwtToken(), { headers: headers })
           .then((response) => {
             console.log(response.data);
           });
-    }
+    },
+    getCities() {
+      var that = this;
+      axios.get('https://axqeajmn83.execute-api.eu-central-1.amazonaws.com/dev/city')
+        .then((resonse) => {
+          that.cities = resonse.data.Items;
+          console.log(resonse.data.Items);
+      });
+    },
   }
 };
 </script>

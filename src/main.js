@@ -6,6 +6,9 @@ import VueAxios from 'vue-axios'
 import { AmplifyPlugin } from 'aws-amplify-vue'
 import aws_exports from '../aws-exports'
 import axios from 'axios'
+import router from './router'
+
+import { store } from './store/store'
 
 Vue.use(VueAxios, axios)
 
@@ -25,5 +28,7 @@ Vue.use(VueRouter)
 Vue.config.productionTip = false
 
 new Vue({
+  router,
+  store,
   render: h => h(App),
 }).$mount('#app')
