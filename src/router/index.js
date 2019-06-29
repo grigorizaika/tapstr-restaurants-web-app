@@ -2,8 +2,10 @@ import Vue from 'vue';
 import VueRouter from 'vue-router'
 
 /* <vue-router-configuration> */
-/*import app from "../App.vue"
-import LoginForm from '../components/Login.vue'*/
+
+/*import LoginForm from '../components/Login.vue'*/
+import RestaurantStart from '../components/RestaurantStart.vue'
+import RestaurantMainPage from '../components/RestaurantMainPage.vue'
 
 Vue.use(VueRouter);
 
@@ -12,8 +14,8 @@ export default new VueRouter({
   base: __dirname,
   routes: [
     /* adding { path: '/', component: app } here leads to the map not rendering */
-   /* { path: '/auth', component: LoginForm },
-    { path: '/user', component: UserAccount},*/
+    { path: '/restaurant-start', component: RestaurantStart },
+    { path: '/main-page', component: RestaurantMainPage },
   ]
 });
 /* </vue-router-configuration> */

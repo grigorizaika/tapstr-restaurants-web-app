@@ -1,5 +1,5 @@
 <template>
-  <b-container fluid class="h-100">
+  <b-container fluid class="h-100" id="restaurantStart">
     <b-row>
       <b-col cols='3'>
         <b-button @click="getRestaurantData()">GET restaurant data</b-button>
@@ -155,6 +155,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+#restaurantStart {
+  padding-top: 32px;
+}
+
 h3 {
   margin: 40px 0 0;
 }

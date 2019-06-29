@@ -1,27 +1,31 @@
 <template>
   <div id="app">
-    <restaurant-start></restaurant-start>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import RestaurantStart from './components/RestaurantStart.vue'
+
 
 export default {
   name: 'app',
   components: {
-    RestaurantStart
+    
   }
 }
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Righteous&display=swap');
+
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  padding: 0;
+  margin: 0;
 }
 </style>

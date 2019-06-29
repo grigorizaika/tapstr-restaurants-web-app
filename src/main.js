@@ -19,6 +19,13 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import './assets/css/main.css'
 require('./assets/css/main.css');
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faCogs } from '@fortawesome/free-solid-svg-icons'
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+library.add(faCogs)
+
 Amplify.configure(aws_exports)
 
 Vue.use(AmplifyPlugin, AmplifyModules)
